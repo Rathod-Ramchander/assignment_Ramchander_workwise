@@ -1,0 +1,18 @@
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE seats (
+  id SERIAL PRIMARY KEY,
+  booked_by INTEGER REFERENCES users(id) ON DELETE SET NULL
+);
+
+-- Seed 80 seats
+DO $$
+BEGIN
+  FOR i IN 1..80 LOOP
+    INSERT INTO seats DEFAULT VALUES;
+  END LOOP;
+END$$;
